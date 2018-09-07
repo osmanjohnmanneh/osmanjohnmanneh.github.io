@@ -4,7 +4,7 @@ import {createStore} from 'react-redux'
 
 console.log(store.getState());
 
-const {SHOW_ALL} = visibilityFilters
+const {SHOW_ALL} = visibilityFilters // Destructuring 
 
  function visibilityFilter(state = SHOW_ALL,action){
    switch(action.type){
