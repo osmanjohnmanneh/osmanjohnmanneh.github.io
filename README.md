@@ -1,2 +1,0 @@
-# osmanjohnmanneh.github.io
-React
