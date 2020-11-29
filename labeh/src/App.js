@@ -50,7 +50,6 @@ class App extends Component {
   }
 
   TextLength = (event) => {
-
     let current = this.state.input.length + 1
     if (event.target.value > 7) {
       current = current - 2
@@ -62,7 +61,6 @@ class App extends Component {
   }
 
   deleteChar = (event,key) => {
-    console.log(key)
     const currentArray = [...this.state.input.split("")]
     currentArray.splice(key,1)
     const jointArray = currentArray.join('')
@@ -123,7 +121,6 @@ class App extends Component {
     let validationInput = (
       <div>
         <input onChange={this.TextLength} value ={this.state.input} />
-
         <Validation
           len={this.state.len}
           text={this.state.input} />
