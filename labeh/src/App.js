@@ -1,10 +1,23 @@
 import React, { Component } from 'react';
 import './App.css';
+import styled from 'styled-components'
 
 import Person from './Person/Person';
 import Validation from './Validation/ValidationComponent'
 import CharComponent from './Validation/CharComponent'
 
+const StyleButton = styled.button`
+        background-color: green;
+        border: 1px solid #eee;
+        font: inherit;
+        margin: 3px auto;
+        padding: 16px;
+        cursor: pointer;
+
+        &:hover{
+          background-color:lightgreen;
+          color:black;
+`;
 class App extends Component {
   state = {
     person: [
@@ -60,9 +73,9 @@ class App extends Component {
     })
   }
 
-  deleteChar = (event,key) => {
+  deleteChar = (event, key) => {
     const currentArray = [...this.state.input.split("")]
-    currentArray.splice(key,1)
+    currentArray.splice(key, 1)
     const jointArray = currentArray.join('')
     this.setState({
       input: jointArray
@@ -70,15 +83,13 @@ class App extends Component {
   }
 
   render() {
-    const buttonStyle = {
-      backgroundColor: '#03506f',
-      border: '1px solid #eee',
-      font: 'inherit',
-      margin: ' 3px auto',
-      padding: '16px',
-      cursor: 'pointer'
+    let classes = []
+    if (this.state.person.length <= 2) {
+      classes.push('red')
     }
-
+    if (this.state.person.length <= 1) {
+      classes.push('bold')
+    }
     let person = null;
     if (this.state.showPerson) {
       person = (
@@ -109,8 +120,8 @@ class App extends Component {
               return (
                 <CharComponent
                   charVal={i}
-                  key ={k}
-                  delete={(event)=>this.deleteChar(event,k)} />
+                  key={k}
+                  delete={(event) => this.deleteChar(event, k)} />
               )
             })
 
@@ -120,7 +131,7 @@ class App extends Component {
     )
     let validationInput = (
       <div>
-        <input onChange={this.TextLength} value ={this.state.input} />
+        <input onChange={this.TextLength} value={this.state.input} />
         <Validation
           len={this.state.len}
           text={this.state.input} />
@@ -128,12 +139,11 @@ class App extends Component {
     )
     return (
       <div className="App">
-
-        {/* <button
-          onClick={this.togglePerson}
-          style={buttonStyle}
-        >Toggle</button> */}
-        {/* {person} */}
+        <p className={classes.join(' ')}>My app works!</p>
+        <StyleButton 
+        onClick={this.togglePerson}
+          >Toggle</StyleButton>
+        {person}
         {validationInput}
         {/* {this.state.showPerson ?  <div>
           <Person
