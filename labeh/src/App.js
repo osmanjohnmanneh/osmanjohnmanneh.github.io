@@ -7,7 +7,7 @@ import Validation from './Validation/ValidationComponent'
 import CharComponent from './Validation/CharComponent'
 
 const StyleButton = styled.button`
-        background-color: green;
+        background-color: ${props => props.alt ? 'red':'green'};
         border: 1px solid #eee;
         font: inherit;
         margin: 3px auto;
@@ -15,7 +15,7 @@ const StyleButton = styled.button`
         cursor: pointer;
 
         &:hover{
-          background-color:lightgreen;
+          background-color:${props => props.alt ? 'salmon':'lightgreen'};
           color:black;
 `;
 class App extends Component {
@@ -140,9 +140,11 @@ class App extends Component {
     return (
       <div className="App">
         <p className={classes.join(' ')}>My app works!</p>
-        <StyleButton 
-        onClick={this.togglePerson}
-          >Toggle</StyleButton>
+        <StyleButton
+        alt = {this.state.showPerson}
+          onClick={this.togglePerson}
+        >Toggle
+          </StyleButton>
         {person}
         {validationInput}
         {/* {this.state.showPerson ?  <div>
