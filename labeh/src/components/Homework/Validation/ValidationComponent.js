@@ -7,17 +7,17 @@ const SytleDiv = styled.div`
 `;
 
 const validationComponent = (props) => {
-    let text = "Text long enough"
-    if (props.text.length == 0 ) {
-        text = "Enter a text"
+    let t = "Text long enough"
+    if (props.text.length === 0 ) {
+        t = "Enter a text"
     }
     if(props.text.length <= 5){
-        text = "Text too short"
+        t = "Text too short"
     }
     return (
         <SytleDiv>
         <p>{props.text}</p>
-            <p>{text}</p>
+            <p>{t}</p>
         </SytleDiv>
     )
 }
