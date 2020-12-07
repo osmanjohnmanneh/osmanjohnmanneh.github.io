@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,Fragment } from 'react';
 import classes from './App.css';
 
 
@@ -7,9 +7,26 @@ import Cockpit from '../components/Cockpit/Cockpit'
 import CharValue from '../components/Homework/CharValues'
 import Valid from '../components/Homework/Valid'
 
+import AuthContext from '../context-auth/auth-context'
+import TextContext from '../context-auth/text-context'
+
 
 //app class 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    console.log('[App.js] constructor runs')
+  }
+  static contextType = AuthContext
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props)
+    return state;
+  }
+  componentDidMount() {
+      console.log('[App.js] componentDidmount')
+  }
+
   state = {
     person: [
       { Id: 1, name: "John", age: 31 },
@@ -18,7 +35,10 @@ class App extends Component {
     ],
     showPerson: false,
     input: "",
-    len: 0
+    len: 0,
+    counter: 0,
+    authentication: false,
+    labeh: "labeh_context"
   }
   //change user name on selected user
   changeName = (event, index) => {
@@ -73,9 +93,19 @@ class App extends Component {
   }
   /////////////////////////////////////////
 
+  counterH = () => {
+    this.setState((prev, props) => {
+      return {
+        counter: prev.counter + 1
+      }
+    })
+  }
+  authHandler = () => {
+    this.setState({ authentication: !this.state.authentication })
+  }
   // RENDER
   render() {
-
+    console.log('[App.js] Render  first rendering...')
     // Condition upon Toggle clicked
     // to show users
     let people = null;
@@ -100,6 +130,7 @@ class App extends Component {
     ///////////////////////////////////////
     // How work to show Character values
     //How work 
+
     let charValues = <CharValue
       input={this.state.input}
       deleteChar={this.deleteChar}
@@ -113,16 +144,29 @@ class App extends Component {
     ///////////////////////////////////////
     return (
       // using CSS MODULES 
+      <Fragment>
       <div className={classes.App}>
-        <Cockpit
-          person={this.state.person}
-          showPerson={this.state.showPerson}
-          togglePerson={this.togglePerson} />
+        <AuthContext.Provider value={{
+          authentication: this.state.authentication,
+          login: this.authHandler
+        }}>
+          <Cockpit
+            title={this.props.AppTitle}
+            personLength={this.state.person.length}
+            showPerson={this.state.showPerson}
+            togglePerson={this.togglePerson}
+             />
+          {people}
+        </AuthContext.Provider>
 
-        {people}
         {validationInput}
+        <TextContext.Provider value = {{labeh:this.state.labeh}}>
         {charValues}
+        </TextContext.Provider>
+        
       </div>
+      </Fragment>
+
     )
   }
 }

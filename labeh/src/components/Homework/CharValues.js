@@ -1,7 +1,11 @@
 import React from 'react'
 import CharComponent from '../Homework/Validation/CharComponent'
 
+
+
+
 const charvalues = (props)=>{
+
     return (
         props.input
         .split("")

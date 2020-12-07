@@ -1,5 +1,7 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import styled from 'styled-components'
+import TextContext from '../../../context-auth/text-context'
+
 
 const SytleButton = styled.button`
     display: inline-block;
@@ -15,10 +17,12 @@ const SytleButton = styled.button`
 `;
 
 const charComponent = (props) => {
+    const textContext = useContext(TextContext)
     
     return (
     <SytleButton>
         <p onClick={props.delete}>{props.charVal}</p>
+        <p>{textContext.labeh}</p>
     </SytleButton>
 )
 }

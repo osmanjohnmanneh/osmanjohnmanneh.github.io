@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import styled from 'styled-components'
 
 const SytleDiv = styled.div`
@@ -7,6 +7,13 @@ const SytleDiv = styled.div`
 `;
 
 const validationComponent = (props) => {
+
+    useEffect(()=>{
+        return ()=>{
+            console.log("[ValidationComponent.js] cleanup")
+        }
+    },[])
+    
     let t = "Text long enough"
     if (props.text.length === 0 ) {
         t = "Enter a text"
